@@ -23,6 +23,22 @@ from schemas.auth import (
     AuthResponse,
     SessionResponse,
 )
+from schemas.user_schema import (
+    ChangePasswordRequest,
+    UserDetailResponse,
+    UserListResponse,
+    UserStatsResponse,
+    Enable2FARequest,
+    Enable2FAResponse,
+    Verify2FARequest,
+    DeactivateAccountRequest,
+    DeleteAccountRequest,
+    UserSearchRequest,
+    UserSearchResponse,
+    UserActivityResponse,
+    UserPreferencesResponse,
+    UserPreferencesUpdate,
+)
 
 __all__ = [
     "UserBase",
@@ -43,4 +59,18 @@ __all__ = [
     "LogoutRequest",
     "AuthResponse",
     "SessionResponse",
+    "ChangePasswordRequest",
+    "UserDetailResponse",
+    "UserListResponse",
+    "UserStatsResponse",
+    "Enable2FARequest",
+    "Enable2FAResponse",
+    "Verify2FARequest",
+    "DeactivateAccountRequest",
+    "DeleteAccountRequest",
+    "UserSearchRequest",
+    "UserSearchResponse",
+    "UserActivityResponse",
+    "UserPreferencesResponse",
+    "UserPreferencesUpdate",
 ]
