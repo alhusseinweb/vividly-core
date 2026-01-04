@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from services.gemini_service import GeminiService
 from services.project_service import ProjectService
-from utils.security import get_current_user
+from middleware.auth_middleware import get_current_user
 from models import User
 from schemas import ProjectGenerateCodeRequest, ProjectGenerateCodeResponse
 import logging

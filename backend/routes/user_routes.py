@@ -19,7 +19,7 @@ from schemas import (
     UserPreferencesResponse,
     UserPreferencesUpdate,
 )
-from utils.security import get_current_user
+from middleware.auth_middleware import get_current_user
 from models import User
 import logging
 
