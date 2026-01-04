@@ -1,9 +1,9 @@
 """
 Authentication middleware
 """
-from fastapi import HTTPException, status, Depends
-from fastapi.security import HTTPBearer, HTTPAuthenticationCredentials
-from utils.security import verify_token, get_user_id_from_token
+from fastapi import HTTPException, status, Depends, Request
+from fastapi.security import HTTPBearer
+from utils.security import verify_token
 from database import get_db
 from models import User
 from sqlalchemy.orm import Session
@@ -14,14 +14,38 @@ logger = logging.getLogger(__name__)
 security = HTTPBearer()
 
 
+async def get_token_from_request(request: Request) -> str | None:
+    """
+    Extract token from Authorization header
+    """
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
+        return None
+    
+    try:
+        scheme, token = auth_header.split()
+        if scheme.lower() != "bearer":
+            return None
+        return token
+    except ValueError:
+        return None
+
+
 async def get_current_user(
-    credentials: HTTPAuthenticationCredentials = Depends(security),
+    request: Request,
     db: Session = Depends(get_db),
 ) -> User:
     """
     Get current user from token
     """
-    token = credentials.credentials
+    token = await get_token_from_request(request)
+    
+    if not token:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
 
     # Verify token
     payload = verify_token(token)
@@ -75,16 +99,17 @@ async def get_current_admin(
 
 
 async def get_optional_user(
-    credentials: HTTPAuthenticationCredentials = Depends(security),
+    request: Request,
     db: Session = Depends(get_db),
 ) -> User | None:
     """
     Get optional current user (doesn't fail if not authenticated)
     """
-    if credentials is None:
+    token = await get_token_from_request(request)
+    
+    if not token:
         return None
 
-    token = credentials.credentials
     payload = verify_token(token)
     if payload is None:
         return None
