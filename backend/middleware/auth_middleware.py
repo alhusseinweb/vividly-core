@@ -2,8 +2,7 @@
 Authentication middleware
 """
 from fastapi import HTTPException, status, Depends
-from fastapi.security import HTTPBearer
-from fastapi.security.http import HTTPAuthCredentials
+from fastapi.security import HTTPBearer, HTTPAuthenticationCredentials
 from utils.security import verify_token, get_user_id_from_token
 from database import get_db
 from models import User
@@ -16,7 +15,7 @@ security = HTTPBearer()
 
 
 async def get_current_user(
-    credentials: HTTPAuthCredentials = Depends(security),
+    credentials: HTTPAuthenticationCredentials = Depends(security),
     db: Session = Depends(get_db),
 ) -> User:
     """
@@ -76,7 +75,7 @@ async def get_current_admin(
 
 
 async def get_optional_user(
-    credentials: HTTPAuthCredentials = Depends(security),
+    credentials: HTTPAuthenticationCredentials = Depends(security),
     db: Session = Depends(get_db),
 ) -> User | None:
     """
