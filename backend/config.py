@@ -70,6 +70,21 @@ class Settings(BaseSettings):
     # Logging
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
 
+    # Google Gemini API
+    GOOGLE_GEMINI_API_KEY: str = os.getenv("GOOGLE_GEMINI_API_KEY", "")
+
+    # Firebase
+    FIREBASE_PROJECT_ID: str = os.getenv("FIREBASE_PROJECT_ID", "")
+    FIREBASE_PRIVATE_KEY: str = os.getenv("FIREBASE_PRIVATE_KEY", "")
+    FIREBASE_CLIENT_EMAIL: str = os.getenv("FIREBASE_CLIENT_EMAIL", "")
+
+    # GitHub API
+    GITHUB_API_TOKEN: str = os.getenv("GITHUB_API_TOKEN", "")
+
+    # Deployment
+    VERCEL_TOKEN: str = os.getenv("VERCEL_TOKEN", "")
+    RAILWAY_API_TOKEN: str = os.getenv("RAILWAY_API_TOKEN", "")
+
     class Config:
         env_file = ".env"
         case_sensitive = True
