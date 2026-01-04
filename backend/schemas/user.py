@@ -3,7 +3,8 @@ User Pydantic schemas
 """
 from pydantic import BaseModel, EmailStr, Field
 from datetime import datetime
-from typing import Optional, UUID
+from typing import Optional
+from uuid import UUID
 
 
 class UserBase(BaseModel):
