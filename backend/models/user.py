@@ -47,7 +47,7 @@ class User(Base):
     last_login_at = Column(DateTime, nullable=True)
 
     # Metadata
-    metadata = Column(JSON, default={})
+    user_metadata = Column(JSON, default={})
 
     def __repr__(self):
         return f"<User {self.email}>"
@@ -68,4 +68,5 @@ class User(Base):
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat(),
             "last_login_at": self.last_login_at.isoformat() if self.last_login_at else None,
+            "user_metadata": self.user_metadata,
         }
