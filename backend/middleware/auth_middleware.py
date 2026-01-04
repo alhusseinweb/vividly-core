@@ -2,7 +2,8 @@
 Authentication middleware
 """
 from fastapi import HTTPException, status, Depends
-from fastapi.security import HTTPBearer, HTTPAuthCredentials
+from fastapi.security import HTTPBearer
+from fastapi.security.http import HTTPAuthCredentials
 from utils.security import verify_token, get_user_id_from_token
 from database import get_db
 from models import User
