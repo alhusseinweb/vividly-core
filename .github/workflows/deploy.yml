@@ -1,0 +1,34 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Deploy to Railway
+      uses: railway-app/deploy-action@v1
+      with:
+        token: ${{ secrets.RAILWAY_TOKEN }}
+        service: backend
+        environment: production
+      env:
+        RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+        RAILWAY_ENVIRONMENT_ID: ${{ secrets.RAILWAY_ENVIRONMENT_ID }}
+    
+    - name: Notify deployment
+      if: success()
+      run: |
+        echo "✅ Deployment to Railway successful!"
+        echo "Backend URL: https://vividly-backend-production.up.railway.app"
+    
+    - name: Notify failure
+      if: failure()
+      run: |
+        echo "❌ Deployment to Railway failed!"
+        exit 1
