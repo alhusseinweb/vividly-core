@@ -110,7 +110,7 @@ class Enable2FAResponse(BaseModel):
 class Verify2FARequest(BaseModel):
     """Verify 2FA request schema"""
 
-    code: str = Field(..., regex=r"^\d{6}$")
+    code: str = Field(..., pattern=r"^\d{6}$")
 
 
 class DeactivateAccountRequest(BaseModel):
@@ -124,7 +124,7 @@ class DeleteAccountRequest(BaseModel):
     """Delete account request schema"""
 
     password: str = Field(..., min_length=8)
-    confirmation: str = Field(..., regex=r"^DELETE$")
+    confirmation: str = Field(..., pattern=r"^DELETE$")
     reason: Optional[str] = Field(None, max_length=500)
 
 

@@ -70,7 +70,7 @@ class ProjectGenerateCodeRequest(BaseModel):
     """Generate code request schema"""
 
     vibe_description: str = Field(..., min_length=10, max_length=2000)
-    language: str = Field("html", regex="^(html|react|vue|svelte)$")
+    language: str = Field("html", pattern="^(html|react|vue|svelte)$")
     framework: Optional[str] = None
 
 
@@ -103,7 +103,7 @@ class ProjectPublishResponse(BaseModel):
 class ProjectExportRequest(BaseModel):
     """Export project request schema"""
 
-    format: str = Field("json", regex="^(json|zip|tar)$")
+    format: str = Field("json", pattern="^(json|zip|tar)$")
     include_assets: bool = True
 
 
@@ -188,7 +188,7 @@ class ProjectAddCollaboratorRequest(BaseModel):
     """Add collaborator request schema"""
 
     email: str
-    role: str = Field("editor", regex="^(editor|viewer)$")
+    role: str = Field("editor", pattern="^(editor|viewer)$")
 
 
 class ProjectRemoveCollaboratorRequest(BaseModel):
@@ -201,4 +201,4 @@ class ProjectUpdateCollaboratorRoleRequest(BaseModel):
     """Update collaborator role request schema"""
 
     user_id: str
-    role: str = Field(..., regex="^(editor|viewer)$")
+    role: str = Field(..., pattern="^(editor|viewer)$")
